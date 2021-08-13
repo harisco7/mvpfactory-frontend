@@ -7,8 +7,6 @@ const initialState = {
   searchResultsPage: 1,
   searchResultsTotal: 0,
   favourites: [],
-  login: () => {},
-  logout: () => {},
 };
 
 const AppContext = createContext(initialState);

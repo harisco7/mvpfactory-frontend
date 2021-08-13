@@ -5,9 +5,13 @@ export const UPDATE_RESULTS = 'UPDATE_RESULTS';
 export function moviesReducer(state, action) {
   switch (action.type) {
     case CHANGE_QUERY:
-      return { ...state, searchQuery: action.payload };
+      return { ...state, searchQuery: action.payload, searchResults: [], searchResultsPage: 1 };
     case UPDATE_RESULTS:
-      return { ...state, searchResults: action.payload.results, searchResultsTotal: action.payload.total };
+      return {
+        ...state,
+        searchResults: [...state.searchResults, ...action.payload.results],
+        searchResultsTotal: action.payload.total,
+      };
     case GET_RESULTS_PAGE:
       return { ...state, searchResultsPage: action.payload };
     default:
