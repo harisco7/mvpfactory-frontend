@@ -20,7 +20,7 @@ const MovieCard = ({ movie }) => {
   }, [movie.imdbID]);
 
   const changeStarred = async () => {
-    if (await setMovieStarred(movie.imdbID, !starred)) {
+    if (await setMovieStarred(movie, !starred)) {
       setStarred(!starred);
     }
   };
