@@ -1,32 +1,34 @@
-import Link from 'next/link';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import { useAppContext } from '../context/app';
-import { DECREASE_COUNT, INCREASE_COUNT } from '../context/reducers/movie';
+import { CHANGE_QUERY } from '../context/reducers/movies';
+import { debounce } from 'lodash';
+import { useCallback } from 'react';
+import MovieResults from '../components/MovieResults';
 
 const IndexPage = () => {
-  const { state, dispatch } = useAppContext();
+  const { dispatch } = useAppContext();
 
-  const handleIncrease = () =>
+  const changeHandler = (event) => {
     dispatch({
-      type: INCREASE_COUNT,
-      payload: 3,
+      type: CHANGE_QUERY,
+      payload: event.target.value,
     });
-  const handleDecrease = () =>
-    dispatch({
-      type: DECREASE_COUNT,
-      payload: 5,
-    });
+  };
+
+  // a rather peculiar case of overriding eslint, because of an uncontrolled-component
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedChangeHandler = useCallback(debounce(changeHandler, 400), [debounce, changeHandler]);
 
   return (
     <>
-      <h1>HOME</h1>
-      <p>Counter: {state.count}</p>
-      <button onClick={handleIncrease}>Increase</button>
-      <button onClick={handleDecrease}>Decrease</button>
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
+      <Typography variant="h4" component="h1" align="center" color="textSecondary" gutterBottom>
+        MVP Factory Movie Browser
+      </Typography>
+      <form noValidate autoComplete="off">
+        <TextField id="search-query" label="Type a movie title" fullWidth helperText="Powered by The OMDb API" onChange={debouncedChangeHandler} />
+      </form>
+      <MovieResults />
     </>
   );
 };
