@@ -14,8 +14,8 @@ const MovieResults = () => {
 
   const fetchData = useCallback(
     async (searchQuery, page) => {
+      setSearching(true);
       try {
-        setSearching(true);
         const response = await axios.get(generateOMDBSearchEndpoint(searchQuery, page));
         dispatch({
           type: UPDATE_RESULTS,

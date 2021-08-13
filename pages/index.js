@@ -1,6 +1,5 @@
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import { useAppContext } from '../context/app';
 import { CHANGE_QUERY } from '../context/reducers/movies';
 import { debounce } from 'lodash';
@@ -25,7 +24,7 @@ const IndexPage = () => {
   ]);
 
   return (
-    <Box py={3}>
+    <>
       <Typography variant="h4" component="h1" align="center" color="textSecondary" gutterBottom>
         MVP Factory Movie Browser
       </Typography>
@@ -39,7 +38,7 @@ const IndexPage = () => {
         />
       </form>
       <MovieResults />
-    </Box>
+    </>
   );
 };
 
