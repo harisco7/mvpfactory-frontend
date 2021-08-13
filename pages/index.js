@@ -1,23 +1,25 @@
-import Link from 'next/link'
-import { useCount, useDispatchCount } from '../components/Counter'
+import Link from 'next/link';
+import { useAppContext } from '../context/app';
+import { DECREASE_COUNT, INCREASE_COUNT } from '../context/reducers/movie';
 
 const IndexPage = () => {
-  const count = useCount()
-  const dispatch = useDispatchCount()
+  const { state, dispatch } = useAppContext();
 
-  const handleIncrease = (event) =>
+  const handleIncrease = () =>
     dispatch({
-      type: 'INCREASE',
-    })
-  const handleDecrease = (event) =>
+      type: INCREASE_COUNT,
+      payload: 3,
+    });
+  const handleDecrease = () =>
     dispatch({
-      type: 'DECREASE',
-    })
+      type: DECREASE_COUNT,
+      payload: 5,
+    });
 
   return (
     <>
       <h1>HOME</h1>
-      <p>Counter: {count}</p>
+      <p>Counter: {state.count}</p>
       <button onClick={handleIncrease}>Increase</button>
       <button onClick={handleDecrease}>Decrease</button>
       <p>
@@ -26,7 +28,7 @@ const IndexPage = () => {
         </Link>
       </p>
     </>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;

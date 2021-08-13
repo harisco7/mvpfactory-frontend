@@ -1,19 +1,19 @@
-import Link from 'next/link'
-import { useCount, useDispatchCount } from '../components/Counter'
+import Link from 'next/link';
+import { useCount, useDispatchCount } from '../components/Counter';
 
-const AboutPage = () => {
-  const count = useCount()
-  const dispatch = useDispatchCount()
+const FavouritesPage = () => {
+  const count = useCount();
+  const dispatch = useDispatchCount();
 
   const handleIncrease = (event) =>
     dispatch({
       type: 'INCREASE',
-    })
+    });
   const handleIncrease15 = (event) =>
     dispatch({
       type: 'INCREASE_BY',
       payload: 15,
-    })
+    });
 
   return (
     <>
@@ -27,7 +27,7 @@ const AboutPage = () => {
         </Link>
       </p>
     </>
-  )
-}
+  );
+};
 
-export default AboutPage
+export default FavouritesPage;

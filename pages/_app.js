@@ -1,15 +1,17 @@
-import App from 'next/app'
-import { CounterProvider } from '../components/Counter'
+import App from 'next/app';
+import { AppProvider } from '../context/app';
+
+import 'reseter.css';
 
 class MyApp extends App {
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps } = this.props;
     return (
-      <CounterProvider>
+      <AppProvider>
         <Component {...pageProps} />
-      </CounterProvider>
-    )
+      </AppProvider>
+    );
   }
 }
 
-export default MyApp
+export default MyApp;
