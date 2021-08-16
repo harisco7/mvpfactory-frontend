@@ -1,12 +1,14 @@
 import { createContext, useContext, useReducer } from 'react';
-import { moviesReducer } from './reducers/movies';
+import { searchReducer } from './reducers/search';
 
 const initialState = {
   searchQuery: '',
+  searchQueryFilters: {},
   searchResults: [],
   searchResultsPage: 1,
   searchResultsTotal: 0,
   favourites: [],
+  user: null,
 };
 
 const AppContext = createContext(initialState);
@@ -20,7 +22,7 @@ export const combineReducers =
   };
 
 export function AppProvider({ children }) {
-  const [state, dispatch] = useReducer(combineReducers(moviesReducer), initialState);
+  const [state, dispatch] = useReducer(combineReducers(searchReducer), initialState);
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 }
 

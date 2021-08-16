@@ -1,10 +1,11 @@
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useAppContext } from '../context/app';
-import { CHANGE_QUERY } from '../context/reducers/movies';
+import { CHANGE_QUERY } from '../context/reducers/search';
 import { debounce } from 'lodash';
 import { useCallback } from 'react';
 import MovieResults from '../components/MovieResults';
+import SearchFilter from '../components/SearchFilter';
 
 const IndexPage = () => {
   const { dispatch } = useAppContext();
@@ -26,17 +27,18 @@ const IndexPage = () => {
   return (
     <>
       <Typography variant="h4" component="h1" align="center" color="textSecondary" gutterBottom>
-        MVP Factory Movie Browser
+        Search for movies and shows
       </Typography>
       <form noValidate autoComplete="off">
         <TextField
           id="search-query"
-          label="Type a movie title"
+          label="Start typing a title"
           fullWidth
           helperText="Powered by The OMDb API"
           onChange={debouncedChangeHandler}
         />
       </form>
+      <SearchFilter />
       <MovieResults />
     </>
   );

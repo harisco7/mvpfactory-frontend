@@ -1,10 +1,10 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useState, useEffect, useCallback } from 'react';
 import { useAppContext } from '../context/app';
-import { GET_RESULTS_PAGE, UPDATE_RESULTS } from '../context/reducers/movies';
+import { SET_RESULTS_PAGE, UPDATE_RESULTS } from '../context/reducers/search';
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
-import { generateOMDBSearchEndpoint } from '../utils/api-helper';
+import { generateOMDBSearchEndpoint } from '../utils/api';
 import MovieCard from './MovieCard';
 import Button from '@material-ui/core/Button';
 
@@ -66,7 +66,7 @@ const MovieResults = () => {
           <Button
             variant="contained"
             onClick={() =>
-              dispatch({ type: GET_RESULTS_PAGE, payload: state.searchResultsPage + 1 })
+              dispatch({ type: SET_RESULTS_PAGE, payload: state.searchResultsPage + 1 })
             }
           >
             Load more

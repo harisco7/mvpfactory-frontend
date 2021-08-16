@@ -1,14 +1,11 @@
 /* eslint-disable no-undef */
-import localForage from 'localforage';
 
-export function generateOMDBSearchEndpoint(query, page = 1) {
-  return `http://www.omdbapi.com/?apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}&s=${query}&page=${page}`;
-}
+import localForage from 'localforage';
 
 export async function getStarredMovies() {
   try {
     const starred = await localForage.getItem(`starred`);
-    return Object.keys(starred).map((id) => value[id]);
+    return Object.keys(starred).map((id) => starred[id]);
   } catch (err) {
     return false;
   }

@@ -1,31 +1,27 @@
-import Link from 'next/link';
-import { useCount, useDispatchCount } from '../components/Counter';
+import { useState, useEffect } from 'react';
+import Typography from '@material-ui/core/Typography';
+import { getStarredMovies } from '../utils/storage';
+import MovieCard from '../components/MovieCard';
 
 const FavouritesPage = () => {
-  const count = useCount();
-  const dispatch = useDispatchCount();
+  const [favourites, setFavourites] = useState([]);
 
-  const handleIncrease = (event) =>
-    dispatch({
-      type: 'INCREASE',
-    });
-  const handleIncrease15 = (event) =>
-    dispatch({
-      type: 'INCREASE_BY',
-      payload: 15,
-    });
+  useEffect(() => {
+    const fetchFavouriteMovies = async () => {
+      const movies = await getStarredMovies();
+      setFavourites(movies);
+    };
+    fetchFavouriteMovies();
+  }, []);
 
   return (
     <>
-      <h1>ABOUT</h1>
-      <p>Counter: {count}</p>
-      <button onClick={handleIncrease}>Increase</button>
-      <button onClick={handleIncrease15}>Increase By 15</button>
-      <p>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-      </p>
+      <Typography variant="h4" component="h1" align="center" color="textSecondary" gutterBottom>
+        MVP Factory Favourite Movies
+      </Typography>
+      {favourites.map((movie) => (
+        <MovieCard key={movie.imdbID} movie={movie} />
+      ))}
     </>
   );
 };

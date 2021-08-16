@@ -6,7 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import StarIcon from '@material-ui/icons/Star';
 import StarOutlineIcon from '@material-ui/icons/StarOutline';
 import styles from './MovieCard.module.css';
-import { isMovieStarred, setMovieStarred } from '../utils/api-helper';
+import { isMovieStarred, setMovieStarred } from '../utils/storage';
 import { useState, useEffect } from 'react';
 
 const MovieCard = ({ movie }) => {
