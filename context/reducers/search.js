@@ -6,7 +6,12 @@ export const UPDATE_RESULTS = 'UPDATE_RESULTS';
 export function searchReducer(state, action) {
   switch (action.type) {
     case CHANGE_QUERY:
-      return { ...state, searchQuery: action.payload, searchResults: [], searchResultsPage: 1 };
+      return {
+        ...state,
+        searchQuery: action.payload,
+        searchResults: [],
+        searchResultsPage: 1,
+      };
     case CHANGE_QUERY_FILTER:
       return {
         ...state,
@@ -18,7 +23,7 @@ export function searchReducer(state, action) {
       return {
         ...state,
         searchResults: [...state.searchResults, ...action.payload.results],
-        searchResultsTotal: action.payload.total,
+        searchResultsTotal: action.payload.total || 0,
       };
     case SET_RESULTS_PAGE:
       return { ...state, searchResultsPage: action.payload };

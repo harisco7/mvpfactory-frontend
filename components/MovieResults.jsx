@@ -13,10 +13,12 @@ const MovieResults = () => {
   const { state, dispatch } = useAppContext();
 
   const fetchData = useCallback(
-    async (searchQuery, page) => {
+    async (searchQuery, searchQueryFilters, page) => {
       setSearching(true);
       try {
-        const response = await axios.get(generateOMDBSearchEndpoint(searchQuery, page));
+        const response = await axios.get(
+          generateOMDBSearchEndpoint(searchQuery, searchQueryFilters, page)
+        );
         dispatch({
           type: UPDATE_RESULTS,
           payload: {
@@ -40,9 +42,9 @@ const MovieResults = () => {
 
   useEffect(() => {
     if (state.searchQuery?.length > 1) {
-      fetchData(state.searchQuery, state.searchResultsPage);
+      fetchData(state.searchQuery, state.searchQueryFilters, state.searchResultsPage);
     }
-  }, [state.searchQuery, state.searchResultsPage, fetchData]);
+  }, [state.searchQuery, state.searchResultsPage, state.searchQueryFilters, fetchData]);
 
   if (!state.searchQuery) {
     return <div></div>;
