@@ -3,15 +3,16 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import { useAppContext } from '../context/app';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { getCurrentUser } from '../utils/storage';
+import { LOGGED_IN_USER } from '../context/reducers/user';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     marginBottom: 30,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -20,10 +21,28 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     textDecoration: 'none',
   },
+  user: {
+    textTransform: 'uppercase',
+    marginLeft: 20,
+    fontWeight: 'bold',
+  },
 }));
 
 const Navbar = () => {
   const classes = useStyles();
+  const { state, dispatch } = useAppContext();
+
+  useEffect(() => {
+    (async () => {
+      if (!state.user) {
+        const currentUser = await getCurrentUser();
+        dispatch({
+          type: LOGGED_IN_USER,
+          payload: currentUser,
+        });
+      }
+    })();
+  }, [dispatch, state.user]);
 
   return (
     <div className={classes.root}>
@@ -44,6 +63,9 @@ const Navbar = () => {
               <a className={classes.navLink}>Login</a>
             </Link>
           </Button>
+          <Typography variant="body1" className={classes.user}>
+            {state.user}
+          </Typography>
         </Toolbar>
       </AppBar>
     </div>
