@@ -5,6 +5,7 @@ const initialState = {
   searchQuery: '',
   searchQueryFilters: {},
   searchResults: [],
+  searchResultsSort: null,
   searchResultsPage: 1,
   searchResultsTotal: 0,
   favourites: [],

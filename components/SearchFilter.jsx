@@ -1,11 +1,15 @@
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormLabel from '@material-ui/core/FormLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './SearchFilter.module.css';
 import { useAppContext } from '../context/app';
 import { range } from 'lodash';
-import { CHANGE_QUERY_FILTER } from '../context/reducers/search';
+import { CHANGE_QUERY_FILTER, CHANGE_RESULTS_SORT } from '../context/reducers/search';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -13,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+  },
+  sortBox: {
+    marginRight: 0,
+    marginLeft: 'auto',
   },
 }));
 
@@ -73,6 +81,24 @@ const SearchFilter = () => {
             Episode
           </option>
         </Select>
+      </FormControl>
+      <FormControl component="fieldset" className={classes.sortBox}>
+        <FormLabel component="legend">Sort by</FormLabel>
+        <RadioGroup
+          aria-label="sort"
+          name="sort"
+          row
+          value={state.searchResultsSort}
+          onChange={(e) =>
+            dispatch({
+              type: CHANGE_RESULTS_SORT,
+              payload: e.target.value,
+            })
+          }
+        >
+          <FormControlLabel value="Title" control={<Radio />} label="Title" />
+          <FormControlLabel value="Year" control={<Radio />} label="Year" />
+        </RadioGroup>
       </FormControl>
     </div>
   );

@@ -27,7 +27,7 @@ const IndexPage = () => {
   return (
     <>
       <Typography variant="h4" component="h1" align="center" color="textSecondary" gutterBottom>
-        Search for movies and shows
+        Search for movies and series
       </Typography>
       <form noValidate autoComplete="off">
         <TextField

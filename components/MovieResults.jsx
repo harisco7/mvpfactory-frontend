@@ -7,6 +7,7 @@ import axios from 'axios';
 import { generateOMDBSearchEndpoint } from '../utils/api';
 import MovieCard from './MovieCard';
 import Button from '@material-ui/core/Button';
+import { sortBy } from 'lodash';
 
 const MovieResults = () => {
   const [searching, setSearching] = useState(false);
@@ -55,7 +56,7 @@ const MovieResults = () => {
       {state.searchQuery && !searching && (
         <Box mb={3}>Search results: {state.searchResultsTotal}</Box>
       )}
-      {state.searchResults.map((movie) => (
+      {sortBy(state.searchResults, [state.searchResultsSort]).map((movie) => (
         <MovieCard key={movie.imdbID} movie={movie} />
       ))}
       {searching && (
@@ -63,7 +64,7 @@ const MovieResults = () => {
           <CircularProgress />
         </Box>
       )}
-      {!searching && (
+      {!searching && state.searchResults.length > 0 && (
         <Box>
           <Button
             variant="contained"
